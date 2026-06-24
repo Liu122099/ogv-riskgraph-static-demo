@@ -29,7 +29,7 @@ https://liu122099.github.io/ogv-riskgraph-static-demo/
 
 环境要求：
 
-- Node.js 20+
+- Node.js `22.13+`，建议使用 Node.js 24
 - pnpm 11.x
 
 ```bash
