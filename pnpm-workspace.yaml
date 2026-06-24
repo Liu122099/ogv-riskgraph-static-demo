@@ -1,0 +1,6 @@
+allowBuilds:
+  unrs-resolver: true
+overrides:
+  '@typescript-eslint/parser': 8.61.1
+packages:
+  - .

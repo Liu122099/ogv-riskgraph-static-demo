@@ -1,0 +1,256 @@
+{
+  "memories": [
+    {
+      "id": "mem-demo-comment-rule-overview",
+      "title": "OGV 评论评审风险标签规则",
+      "memoryType": "rule",
+      "scope": "department",
+      "rawText": "本条为演示语料。OGV 评论评审需要识别引战对立、平台保护、色情低俗、盗版侵权、广告引流、大会员负面和内容负面等风险标签。评审时需要结合稿件标题、简介、分区、作品基调和评论上下文，不仅依赖关键词。",
+      "summary": "一套面向 OGV 评论区的演示风险标签规则，用于展示如何把评审规则沉淀为可检索、可追问、可视化的记忆。",
+      "riskType": "评论评审规则风险",
+      "scene": "OGV 评论区 / 弹幕抽检 / 人工复核",
+      "triggerSignal": "评论出现群体攻击、粉丝对立、隐晦低俗、平台机制攻击、盗版资源引流、广告拉群或极端负面表达。",
+      "rootCause": "评论表达短、上下文依赖强，隐晦表达和情绪化吐槽容易造成误判或漏判。",
+      "decisionBasis": [
+        "命中任一风险标签定义即可进入风险候选",
+        "多标签评论需要同时输出多个标签及证据",
+        "内容负面需要区分极端攻击和普通吐槽",
+        "低置信度样本进入人工复核"
+      ],
+      "solutionPath": [
+        "先读取稿件标题、简介、分区和评论上下文",
+        "检查是否命中引战对立、平台保护、低俗、盗版、广告和内容负面标签",
+        "对隐晦表达、谐音和边界样本做二次核对",
+        "输出标签、证据、置信度和复核建议"
+      ],
+      "preventionChecklist": [
+        "评审前确认作品基调和评论上下文",
+        "边界样本保留判定理由",
+        "低置信度样本进入人工复核",
+        "误判样本回流到规则记忆库"
+      ],
+      "relatedModules": [
+        "评论审核台",
+        "标签规则库",
+        "人工复核队列",
+        "样本质检看板"
+      ],
+      "tags": [
+        "评论评审",
+        "标签判定",
+        "风险标签",
+        "人工复核"
+      ],
+      "createdBy": "演示语料导入",
+      "createdAt": "2026-06-23T06:30:00.000Z",
+      "confidenceScore": 88
+    },
+    {
+      "id": "mem-demo-comment-implicit-expression",
+      "title": "评论隐晦表达识别规则",
+      "memoryType": "rule",
+      "scope": "department",
+      "rawText": "本条为演示语料。评论中可能使用谐音、拆字、数字、符号或角色梗表达风险含义。评审时不能只看表面文本，需要结合稿件内容、角色关系、评论上下文和近期误判样本进行判断。",
+      "summary": "隐晦表达识别规则用于提示评审人员关注谐音、拆字、符号化表达和上下文映射，减少漏判和误判。",
+      "riskType": "隐晦表达识别风险",
+      "scene": "评论评审 / 谐音识别 / 边界样本复核",
+      "triggerSignal": "评论出现异常符号、缩写、谐音词、角色梗、反复刷屏或上下文强相关表达。",
+      "rootCause": "用户可能通过变体表达规避直接关键词，评审系统和人工标注都需要上下文辅助。",
+      "decisionBasis": [
+        "异常符号、缩写和谐音词需要结合上下文判断",
+        "同一表达在不同作品语境下可能风险等级不同",
+        "儿童向、青少年向内容对低俗暗示更敏感",
+        "无法确认含义时不能直接固化为规则"
+      ],
+      "solutionPath": [
+        "提取评论中的异常词、符号和短语",
+        "结合稿件标题、角色、剧情和评论上下文确认语义",
+        "比对近期误判样本和边界案例",
+        "低置信度样本转人工复核并记录证据"
+      ],
+      "preventionChecklist": [
+        "维护演示谐音表达库",
+        "保留上下文字段和判定证据",
+        "复核高争议样本",
+        "定期回收误判样本更新规则"
+      ],
+      "relatedModules": [
+        "隐晦表达库",
+        "上下文解析",
+        "人工复核",
+        "样本回流"
+      ],
+      "tags": [
+        "谐音识别",
+        "隐晦表达",
+        "边界样本",
+        "上下文"
+      ],
+      "createdBy": "演示语料导入",
+      "createdAt": "2026-06-23T06:31:00.000Z",
+      "confidenceScore": 84
+    },
+    {
+      "id": "mem-demo-comment-review-sop",
+      "title": "评论评审 SOP 与复核流程",
+      "memoryType": "personal_experience",
+      "scope": "department",
+      "rawText": "本条为演示语料。评论评审 SOP：先看稿件上下文，再检查风险标签，再判断表达强度，最后输出标签、证据、置信度和复核建议。争议样本进入质检复盘，沉淀为可检索记忆。",
+      "summary": "评论评审 SOP 用于演示个人经验和部门规则如何共同沉淀为双层记忆，支持后续 Agent 问答和图谱追溯。",
+      "riskType": "评论评审流程风险",
+      "scene": "评论质检 / 标注培训 / 规则复盘",
+      "triggerSignal": "评审人员对边界样本、隐晦表达、平台保护或内容负面判断不一致。",
+      "rootCause": "规则维度多、表达强度难量化、不同作品语境差异大，新评审人员容易把普通吐槽误判为高风险内容。",
+      "decisionBasis": [
+        "SOP 要求先读标题、简介、分区和作品基调",
+        "文本分析阶段检查隐晦表达、平台机制、广告引流和内容负面",
+        "程度判定阶段区分普通吐槽、强烈负面和攻击性表达",
+        "争议样本需要进入质检复盘"
+      ],
+      "solutionPath": [
+        "按 SOP 顺序完成上下文读取和文本分析",
+        "用典型样本校准标签边界",
+        "多标签样本逐项输出命中理由",
+        "争议样本进入质检复盘并更新记忆"
+      ],
+      "preventionChecklist": [
+        "每批评审前同步最新规则版本",
+        "抽检边界样本并记录纠错点",
+        "典型样本沉淀为可检索记忆",
+        "复盘高频误判标签"
+      ],
+      "relatedModules": [
+        "评审 SOP",
+        "典型样本库",
+        "质检复盘",
+        "培训材料"
+      ],
+      "tags": [
+        "SOP",
+        "典型样本",
+        "评审质检",
+        "复核流程"
+      ],
+      "createdBy": "演示语料导入",
+      "createdAt": "2026-06-23T06:32:00.000Z",
+      "confidenceScore": 82
+    }
+  ],
+  "entities": [
+    {
+      "id": "ent-demo-overview",
+      "memoryId": "mem-demo-comment-rule-overview",
+      "name": "OGV 评论评审风险标签规则",
+      "type": "rule"
+    },
+    {
+      "id": "ent-demo-incitement",
+      "memoryId": "mem-demo-comment-rule-overview",
+      "name": "引战对立",
+      "type": "risk_type"
+    },
+    {
+      "id": "ent-demo-platform",
+      "memoryId": "mem-demo-comment-rule-overview",
+      "name": "平台保护",
+      "type": "risk_type"
+    },
+    {
+      "id": "ent-demo-negative",
+      "memoryId": "mem-demo-comment-rule-overview",
+      "name": "内容负面",
+      "type": "risk_type"
+    },
+    {
+      "id": "ent-demo-implicit",
+      "memoryId": "mem-demo-comment-implicit-expression",
+      "name": "评论隐晦表达识别规则",
+      "type": "rule"
+    },
+    {
+      "id": "ent-demo-context",
+      "memoryId": "mem-demo-comment-implicit-expression",
+      "name": "上下文强依赖",
+      "type": "root_cause"
+    },
+    {
+      "id": "ent-demo-sop",
+      "memoryId": "mem-demo-comment-review-sop",
+      "name": "评论评审 SOP",
+      "type": "rule"
+    },
+    {
+      "id": "ent-demo-review",
+      "memoryId": "mem-demo-comment-review-sop",
+      "name": "人工复核",
+      "type": "action"
+    }
+  ],
+  "relations": [
+    {
+      "id": "rel-demo-overview-incitement",
+      "memoryId": "mem-demo-comment-rule-overview",
+      "source": "OGV 评论评审风险标签规则",
+      "relation": "包含",
+      "target": "引战对立",
+      "evidenceText": "引战对立用于识别群体攻击、粉丝对立、地域攻击等风险表达。"
+    },
+    {
+      "id": "rel-demo-overview-platform",
+      "memoryId": "mem-demo-comment-rule-overview",
+      "source": "OGV 评论评审风险标签规则",
+      "relation": "包含",
+      "target": "平台保护",
+      "evidenceText": "平台保护用于识别对平台机制、审核、评分或运营的攻击性表达。"
+    },
+    {
+      "id": "rel-demo-overview-negative",
+      "memoryId": "mem-demo-comment-rule-overview",
+      "source": "OGV 评论评审风险标签规则",
+      "relation": "包含",
+      "target": "内容负面",
+      "evidenceText": "内容负面需要区分极端攻击和普通观后感吐槽。"
+    },
+    {
+      "id": "rel-demo-implicit-incitement",
+      "memoryId": "mem-demo-comment-implicit-expression",
+      "source": "评论隐晦表达识别规则",
+      "relation": "辅助判定",
+      "target": "引战对立",
+      "evidenceText": "隐晦表达需要结合上下文判断是否指向群体攻击或粉丝对立。"
+    },
+    {
+      "id": "rel-demo-context-implicit",
+      "memoryId": "mem-demo-comment-implicit-expression",
+      "source": "上下文强依赖",
+      "relation": "影响",
+      "target": "评论隐晦表达识别规则",
+      "evidenceText": "同一表达在不同作品语境下可能对应不同风险等级。"
+    },
+    {
+      "id": "rel-demo-sop-context",
+      "memoryId": "mem-demo-comment-review-sop",
+      "source": "评论评审 SOP",
+      "relation": "第一步",
+      "target": "读取上下文",
+      "evidenceText": "评审流程要求先读取稿件标题、简介、分区和作品基调。"
+    },
+    {
+      "id": "rel-demo-sop-check",
+      "memoryId": "mem-demo-comment-review-sop",
+      "source": "评论评审 SOP",
+      "relation": "检查",
+      "target": "风险标签",
+      "evidenceText": "文本分析阶段检查隐晦表达、平台机制、广告引流和内容负面。"
+    },
+    {
+      "id": "rel-demo-sop-review",
+      "memoryId": "mem-demo-comment-review-sop",
+      "source": "争议样本",
+      "relation": "进入",
+      "target": "人工复核",
+      "evidenceText": "低置信度或争议样本需要进入人工复核和质检复盘。"
+    }
+  ],
+  "qaLogs": []
+}
