@@ -48,12 +48,12 @@ function formatMemoryDate(value: string) {
     return "刚刚";
   }
 
-  return date.toLocaleString("zh-CN", {
-    month: "2-digit",
-    day: "2-digit",
-    hour: "2-digit",
-    minute: "2-digit"
-  });
+  const chinaTime = new Date(date.getTime() + 8 * 60 * 60 * 1000);
+  const pad = (part: number) => String(part).padStart(2, "0");
+
+  return `${pad(chinaTime.getUTCMonth() + 1)}/${pad(chinaTime.getUTCDate())} ${pad(
+    chinaTime.getUTCHours()
+  )}:${pad(chinaTime.getUTCMinutes())}`;
 }
 
 export default function DashboardPage() {
