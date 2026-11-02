@@ -8,10 +8,10 @@ export default function MigratePage() {
   return (
     <div className="space-y-6">
       <section className="frosted-card rounded-[28px] p-10">
-        <StatusBadge>可迁移能力</StatusBadge>
-        <h1 className="mt-5 text-4xl font-bold text-slate-950">迁移能力</h1>
+        <StatusBadge>拓展方向 · 方案设想</StatusBadge>
+        <h1 className="mt-5 text-4xl font-bold text-slate-950">拓展方向</h1>
         <p className="mt-3 max-w-3xl text-sm leading-6 text-slate-500">
-          OGV 风控是首个样板。底层“记忆写入 → AI 结构化 → 图谱沉淀 → Agent 调用”框架可迁移到其他部门。
+          以下是产品流程的潜在应用方向，尚未验证或接入这些业务。当前仅演示记忆写入、结构化确认、图谱组织与证据问答。
         </p>
       </section>
 
@@ -23,7 +23,7 @@ export default function MigratePage() {
             </div>
             <h2 className="mt-5 text-xl font-bold text-slate-950">{department}</h2>
             <p className="mt-2 text-sm leading-6 text-slate-500">
-              复用风险记忆写入、结构化抽取和知识图谱组织能力。
+              可探索复用记忆写入、结构化抽取和知识图谱组织流程；不代表已部署。
             </p>
           </div>
         ))}

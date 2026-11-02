@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { BookOpen, CheckCircle2, Database, Loader2, MessageSquare, Send, Sparkles } from "lucide-react";
 import { useState } from "react";
@@ -25,9 +25,9 @@ const defaultAnswer: AgentAskResponse = {
 };
 
 function confidenceLabel(confidence: AgentAskResponse["confidence"]) {
-  if (confidence === "high") return "高可信";
-  if (confidence === "low") return "低可信";
-  return "中可信";
+  if (confidence === "high") return "引用较多";
+  if (confidence === "low") return "引用较少";
+  return "引用有限";
 }
 
 export function AgentWorkspace({ db }: { db: RiskGraphDB }) {
@@ -105,9 +105,9 @@ export function AgentWorkspace({ db }: { db: RiskGraphDB }) {
         <div className="mb-5 flex items-center justify-between gap-4">
           <div>
             <h2 className="text-xl font-bold text-slate-950">双层记忆问答</h2>
-            <p className="mt-1 text-sm text-slate-500">基于本地规则记忆与图谱关系生成带引用回答</p>
+            <p className="mt-1 text-sm text-slate-500">检索演示记忆并展示规则模拟回答与引用依据</p>
           </div>
-          {answer.usedFallback ? <StatusBadge tone="purple">本地证据回答</StatusBadge> : <StatusBadge tone="green">模型增强</StatusBadge>}
+          {answer.usedFallback ? <StatusBadge tone="purple">规则模拟回答</StatusBadge> : <StatusBadge tone="green">模型增强</StatusBadge>}
         </div>
 
         <div className="rounded-2xl bg-slate-50 p-5">

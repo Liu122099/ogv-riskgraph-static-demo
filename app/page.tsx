@@ -19,24 +19,6 @@ import { SectionTitle, StatusBadge } from "@/components/ui";
 import { useDemoDB } from "@/lib/static-store";
 import type { RiskMemory } from "@/types/riskgraph";
 
-const defaultRecent = [
-  {
-    title: "评论标签判定规则总览",
-    date: "2026-06-23 14:30",
-    owner: "演示语料导入"
-  },
-  {
-    title: "谐音与隐晦表达识别规则",
-    date: "2026-06-23 14:31",
-    owner: "演示语料导入"
-  },
-  {
-    title: "OGV 专题权益口径风险案例",
-    date: "2026-06-23 14:32",
-    owner: "风控复盘"
-  }
-];
-
 function countByType(memories: RiskMemory[], type: RiskMemory["memoryType"]) {
   return memories.filter((memory) => memory.memoryType === type).length;
 }
@@ -58,25 +40,21 @@ function formatMemoryDate(value: string) {
 
 export default function DashboardPage() {
   const db = useDemoDB();
-  const hasData = db.memories.length > 0;
-  const totalMemories = hasData ? db.memories.length : 36;
-  const rules = hasData ? countByType(db.memories, "rule") : 18;
-  const personal = hasData ? countByType(db.memories, "personal_experience") : 12;
-  const hitRate = hasData ? Math.min(96, 82 + db.memories.length) : 82;
-  const recent = hasData
-    ? db.memories.slice(0, 3).map((memory) => ({
-        title: memory.title,
-        date: formatMemoryDate(memory.createdAt),
-        owner: memory.createdBy
-      }))
-    : defaultRecent;
+  const totalMemories = db.memories.length;
+  const rules = countByType(db.memories, "rule");
+  const personal = countByType(db.memories, "personal_experience");
+  const recent = db.memories.slice(0, 3).map((memory) => ({
+    title: memory.title,
+    date: formatMemoryDate(memory.createdAt),
+    owner: memory.createdBy
+  }));
 
   const stats = [
     {
       label: "已沉淀风险记忆",
       value: totalMemories,
       unit: "条",
-      delta: hasData ? `+${totalMemories}` : "+8",
+      note: "当前浏览器中的演示记忆",
       icon: FileText,
       tone: "blue"
     },
@@ -84,7 +62,7 @@ export default function DashboardPage() {
       label: "处置规则记忆",
       value: rules,
       unit: "条",
-      delta: hasData ? `+${rules}` : "+3",
+      note: "可检索的规则条目",
       icon: BookOpen,
       tone: "purple"
     },
@@ -92,15 +70,15 @@ export default function DashboardPage() {
       label: "个人经验记忆",
       value: personal,
       unit: "条",
-      delta: hasData ? `+${personal}` : "+2",
+      note: "可在写入页添加个人经验",
       icon: Search,
       tone: "pink"
     },
     {
-      label: "相似案例命中率",
-      value: hitRate,
-      unit: "%",
-      delta: hasData ? "+实时" : "+6%",
+      label: "知识图谱关系",
+      value: db.relations.length,
+      unit: "条",
+      note: "来自演示记忆的关联关系",
       icon: Target,
       tone: "blue"
     }
@@ -108,7 +86,7 @@ export default function DashboardPage() {
 
   return (
     <div className="space-y-6">
-      <section className="frosted-card relative overflow-hidden rounded-[28px] p-11">
+      <section className="frosted-card relative overflow-hidden rounded-[28px] p-6 sm:p-11">
         <div className="absolute inset-y-0 right-0 w-[48%] bg-gradient-to-br from-blue-50 via-violet-50 to-pink-100" />
         <div className="absolute right-24 top-12 h-80 w-80 rounded-full border border-blue-200/60" />
         <div className="absolute right-12 top-20 h-96 w-96 rounded-full border border-violet-200/70" />
@@ -116,8 +94,8 @@ export default function DashboardPage() {
           <div>
             <SectionTitle
               eyebrow="双层记忆驱动的风控智能体"
-              title="OGV 风控专属记忆智能体"
-              description="将分散的经验转化为可复用的组织智能。通过双层记忆与图谱组织，让风控团队的每一次处置都有迹可循，每一次判断都有据可依。"
+              title="OGV 风险记忆智能体"
+              description="围绕经验分散、依据难查的问题，演示“记忆写入 → 结构化确认 → 关系图谱 → 带引用问答”的产品流程。"
             />
 
             <div className="mt-8 flex flex-wrap gap-4">
@@ -187,7 +165,7 @@ export default function DashboardPage() {
                     <span className="pb-1 text-sm text-slate-500">{stat.unit}</span>
                   </div>
                   <div className="mt-2 text-sm text-slate-500">
-                    较上周 <span className="font-semibold text-blue-600">{stat.delta}</span>
+                    {stat.note}
                   </div>
                 </div>
               </div>

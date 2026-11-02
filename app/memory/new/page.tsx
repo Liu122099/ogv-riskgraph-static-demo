@@ -4,11 +4,9 @@ import {
   BookOpen,
   CheckCircle2,
   Circle,
-  Eye,
   FileText,
   Loader2,
   PenLine,
-  Plus,
   RefreshCw,
   ShieldCheck,
   Sparkles,
@@ -53,7 +51,7 @@ const memoryTypes: Array<{
   {
     value: "risk_case",
     title: "风险案例",
-    desc: "记录真实发生的风险事件",
+    desc: "用演示案例体验记忆写入",
     icon: ShieldCheck
   },
   {
@@ -70,7 +68,7 @@ const memoryTypes: Array<{
   }
 ];
 
-const tagOptions = ["评论评审", "标签判定", "谐音隐晦", "人工复核", "添加标签"];
+const tagOptions = ["评论评审", "标签判定", "谐音隐晦", "人工复核"];
 
 export default function NewMemoryPage() {
   const router = useRouter();
@@ -188,13 +186,13 @@ export default function NewMemoryPage() {
                 {[
                   {
                     value: "personal" as const,
-                    title: "仅保存到个人 Agent",
-                    desc: "仅自己可见，助力个人决策"
+                    title: "个人经验层",
+                    desc: "仅保存在当前浏览器，优先供个人 Agent 检索"
                   },
                   {
                     value: "department" as const,
-                    title: "贡献到部门知识库",
-                    desc: "审核通过后，团队共享复用"
+                    title: "部门知识层",
+                    desc: "模拟部门共享层，不会提交或分享给其他人"
                   }
                 ].map((item) => {
                   const active = scope === item.value;
@@ -249,7 +247,7 @@ export default function NewMemoryPage() {
                 className="h-[360px] w-full resize-none rounded-xl border border-blue-200 bg-white/85 p-5 text-sm leading-7 text-slate-800 outline-none transition placeholder:text-slate-300 focus:border-blue-500 focus:ring-4 focus:ring-blue-100"
                 placeholder="输入评论评审规则背景、适用范围、触发信号、判定依据与处置复核流程..."
               />
-              <div className="mt-2 text-right text-xs text-slate-400">{rawText.length} / 3000</div>
+              <div className="mt-2 text-right text-xs text-slate-400">{rawText.length} 字</div>
             </div>
 
             <div>
@@ -260,15 +258,13 @@ export default function NewMemoryPage() {
                     key={tag}
                     type="button"
                     onClick={() =>
-                      tag === "添加标签"
-                        ? undefined
-                        : setRawText((current) =>
+                      setRawText((current) =>
                             current.includes(tag) ? current : `${current}\n\n#${tag}`
                           )
                     }
                     className="rounded-lg border border-blue-100 bg-blue-50 px-3 py-2 text-xs font-semibold text-blue-600 hover:border-blue-300"
                   >
-                    {tag === "添加标签" ? <Plus className="inline h-3.5 w-3.5" /> : null}
+
                     {tag}
                   </button>
                 ))}
@@ -281,7 +277,7 @@ export default function NewMemoryPage() {
               </div>
             ) : null}
 
-            <div className="grid gap-4 md:grid-cols-3">
+            <div className="grid gap-4 md:grid-cols-2">
               <button
                 type="button"
                 disabled={loading || rawText.trim().length === 0}
@@ -289,7 +285,7 @@ export default function NewMemoryPage() {
                 className="blue-gradient inline-flex h-12 items-center justify-center gap-2 rounded-xl text-sm font-bold text-white shadow-card transition hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-60"
               >
                 {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Sparkles className="h-4 w-4" />}
-                AI 结构化记忆
+                生成结构化演示
               </button>
               <button
                 type="button"
@@ -299,13 +295,7 @@ export default function NewMemoryPage() {
                 <RefreshCw className="h-4 w-4" />
                 填充示例
               </button>
-              <button
-                type="button"
-                className="inline-flex h-12 items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white text-sm font-bold text-slate-600 hover:border-blue-200 hover:text-blue-600"
-              >
-                <Eye className="h-4 w-4" />
-                预览结构化结果
-              </button>
+
             </div>
           </div>
         </section>
@@ -314,7 +304,7 @@ export default function NewMemoryPage() {
           <section className="frosted-card rounded-2xl p-6">
             <div className="mb-6 flex items-center justify-between">
               <h2 className="text-lg font-bold text-slate-950">写作指引</h2>
-              <button className="text-sm font-semibold text-blue-600">收起</button>
+
             </div>
             {[
               ["客观真实", "基于真实发生的事件，避免主观猜测。"],

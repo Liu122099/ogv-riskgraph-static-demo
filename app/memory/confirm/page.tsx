@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import {
   AlertTriangle,
@@ -72,7 +72,7 @@ export default function ConfirmMemoryPage() {
         </div>
         <h1 className="mt-6 text-3xl font-bold text-slate-950">暂无结构化结果</h1>
         <p className="mt-3 text-sm leading-6 text-slate-500">
-          请先在记忆写入中心输入案例并运行 AI 结构化，再回到确认页保存。
+          请先在记忆写入中心输入案例并生成结构化演示，再回到确认页保存。
         </p>
         <Link
           href="/memory/new"
@@ -85,6 +85,7 @@ export default function ConfirmMemoryPage() {
   }
 
   const memory = bundle.memory;
+  const filledFields = [memory.title, memory.summary, memory.riskType, memory.scene, memory.triggerSignal, memory.rootCause, memory.decisionBasis.length, memory.solutionPath.length, memory.preventionChecklist.length, memory.tags.length].filter(Boolean).length;
 
   return (
     <div className="space-y-6">
@@ -97,12 +98,12 @@ export default function ConfirmMemoryPage() {
           返回记忆列表
         </Link>
         <div className="mt-6 flex flex-wrap items-center gap-4">
-          <h1 className="text-4xl font-bold text-slate-950">AI 结构化确认</h1>
+          <h1 className="text-4xl font-bold text-slate-950">结构化结果确认</h1>
           <StatusBadge tone="green">已完成解析</StatusBadge>
-          {bundle.usedFallback ? <StatusBadge tone="purple">离线结构化</StatusBadge> : null}
+          {bundle.usedFallback ? <StatusBadge tone="purple">规则模拟</StatusBadge> : null}
         </div>
         <p className="mt-3 text-sm leading-6 text-slate-500">
-          请确认以下结构化结果，您可进行编辑或补充，确认后将写入个人记忆并可贡献到团队知识库。
+          请核对模板生成的演示字段。保存只发生在当前浏览器，可返回修改原文后重新生成，不会提交给团队。
         </p>
       </div>
 
@@ -139,27 +140,27 @@ export default function ConfirmMemoryPage() {
         </div>
 
         <div className="frosted-card rounded-2xl p-6">
-          <div className="text-sm font-semibold text-slate-500">风险完整度</div>
+          <div className="text-sm font-semibold text-slate-500">结构字段覆盖</div>
           <div className="mt-4 flex items-end gap-1">
-            <span className="text-4xl font-bold text-slate-950">{memory.confidenceScore}</span>
-            <span className="pb-1 text-sm text-slate-500">/100</span>
+            <span className="text-4xl font-bold text-slate-950">{filledFields}</span>
+            <span className="pb-1 text-sm text-slate-500">/10</span>
           </div>
           <div className="mt-4 h-3 rounded-full bg-slate-100">
             <div
               className="h-3 rounded-full bg-gradient-to-r from-blue-600 to-violet-500"
-              style={{ width: `${Math.max(8, Math.min(100, memory.confidenceScore))}%` }}
+              style={{ width: `${filledFields * 10}%` }}
             />
           </div>
-          <div className="mt-4 text-sm text-slate-500">结构完整，信息充分</div>
+          <div className="mt-4 text-sm text-slate-500">已填字段数量，不代表内容准确性</div>
         </div>
 
         <div className="frosted-card rounded-2xl p-6">
-          <div className="text-sm font-semibold text-slate-500">可信度</div>
+          <div className="text-sm font-semibold text-slate-500">生成方式</div>
           <div className="mt-4 flex items-center justify-between">
-            <div className="text-4xl font-bold text-slate-950">高</div>
+            <div className="text-4xl font-bold text-slate-950">模板</div>
             <ShieldCheck className="h-14 w-14 text-emerald-500" />
           </div>
-          <div className="mt-5 text-sm text-slate-500">基于多信号一致性判断</div>
+          <div className="mt-5 text-sm text-slate-500">固定规则模拟，需人工核对</div>
         </div>
       </section>
 
@@ -270,7 +271,7 @@ export default function ConfirmMemoryPage() {
           className="inline-flex h-14 items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white text-sm font-bold text-slate-700 hover:border-blue-200 hover:text-blue-600 disabled:opacity-60"
         >
           {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : <BookOpen className="h-4 w-4" />}
-          保存到个人 Agent
+          保存到个人经验层
         </button>
         <button
           type="button"
@@ -279,7 +280,7 @@ export default function ConfirmMemoryPage() {
           className="blue-gradient inline-flex h-14 items-center justify-center gap-2 rounded-xl text-sm font-bold text-white shadow-card transition hover:-translate-y-0.5 disabled:opacity-60"
         >
           {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : <CloudUpload className="h-4 w-4" />}
-          贡献到部门知识库
+          保存到部门知识层
         </button>
         <Link
           href="/memory/new"
