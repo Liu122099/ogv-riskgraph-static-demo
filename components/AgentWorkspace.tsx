@@ -58,7 +58,7 @@ export function AgentWorkspace({ db }: { db: RiskGraphDB }) {
   }
 
   return (
-    <section className="grid gap-5 xl:grid-cols-[280px_1fr_380px]">
+    <section className="grid gap-5 xl:grid-cols-[220px_minmax(0,1fr)] 2xl:grid-cols-[220px_minmax(0,1fr)_300px]">
       <aside className="space-y-5">
         <div className="frosted-card rounded-2xl p-4">
           {[
@@ -162,7 +162,7 @@ export function AgentWorkspace({ db }: { db: RiskGraphDB }) {
         </div>
       </main>
 
-      <aside className="space-y-5">
+      <aside className="space-y-5 xl:col-span-2 xl:grid xl:grid-cols-2 xl:gap-5 xl:space-y-0 2xl:col-span-1 2xl:block 2xl:space-y-5">
         <div className="frosted-card rounded-2xl p-6">
           <div className="mb-4 flex items-center gap-3">
             <div className="grid h-10 w-10 place-items-center rounded-xl bg-blue-50 text-blue-600">
